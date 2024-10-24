@@ -1,0 +1,162 @@
+go to EC2  click on launch instance
+
+under quick start select  redhat
+
+now you have to select the keypair if you are not created the keypair then click on create keypair 
+
+click on create keypair : rsa and .pem
+
+under  firewall security group select create security
+select all 3 options such as allow ssh traffic  allow http traffic  from interternet ...
+
+click on launch instance
+
+come back to EC2 dashboard
+
+onleft side scroll down there is an option called network and security 
+select  security   group  any one
+
+select inbound rules and click on edit inbound rules
+
+in source column select all drop down options as Anywhere-IPV4
+in left bottom corner click Add rule 
+
+now add all traffic rule   and also  select  drop down options as Anywhere-IPV4
+
+click on save rules
+
+go to EC2 dashboard and select running instance  and  click on  connect
+go to ssh client and copy the command under example session
+
+open cmd from that folder where key.pem is located
+
+connect AWS instance and copy SSH command which is located in SSH client
+
+#######################################################################
+IF an error will occur on running a new key run the following  commands  :
+open cmd and go to the folder path where key is stored 
+run the following commands 
+
+icacls zapuk.pem /inheritance:r
+
+icacls zapuk.pem /grant:r %username%:F
+
+icacls zapuk.pem
+
+retry running the key using SSH command that you have entered above
+
+###############################################################################
+
+sudo su
+
+sudo dnf install wget
+
+sudo dnf install unzip
+
+dnf install httpd httpd-tools php gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel -y
+
+useradd nagios
+
+usermod -G nagios nagios
+
+usermod -G nagios apache
+
+mkdir /root/nagios
+
+cd /root/nagios
+
+wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.9.tar.gz
+
+wget https://nagios-plugins.org/download/nagios-plugins-2.3.3.tar.gz
+
+tar -xf nagios-4.4.9.tar.gz
+
+tar -xf nagios-plugins-2.3.3.tar.gz
+
+cd nagios-4.4.9/
+
+./configure --with-command-group=nagios
+
+make all
+
+make install
+
+make install-init
+
+make install-commandmode
+
+make install-config
+
+make install-webconf
+
+htpasswd -s -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+New password: 
+
+Re-type new password: 
+
+Adding password for user nagiosadmin
+
+systemctl restart httpd
+
+cd /root/nagios/nagios-plugins-2.3.3 
+
+./configure --with-nagios-user=nagios --with-nagios-group=nagios
+
+make
+
+make install
+
+/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+systemctl enable nagios
+
+systemctl enable httpd
+
+systemctl restart nagios
+
+systemctl status nagios
+-------------------------------------------------------------------------------------------------------------------------------------------
+when lines 1-28/28 (END)  like this appears then click CTRL + C and press Enter
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+go to EC2 dashboard click on running instance ID 
+
+copy public IPV4  address
+
+open browser
+
+paste the ip address that you have copied
+
+http://your-server-ip/your-instance-name
+
+enter your username and password
+username is set as nagiosadmin by default 
+enter password that you created
+
+on nagios interface go to  services
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+systemctl stop sshd
+
+
+-----------------------------------------------------------------------------
+status of ssh should be critical now after stoping 
+
+--------------------------------------------------------------------------
+
+systemctl start sshd
+
+-----------------------------------------------------------------------------
+
+run above command to bring ssh status to normal state (ok)
+
+
+
+
+
+
+

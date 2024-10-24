@@ -1,0 +1,6 @@
+step 0: link of drive to download zip and main.tf  [ https://drive.google.com/drive/folders/1AyIMInKNc8w0uvExF2r5ymrYF8Ow73l0 ]
+step 1: download zip folder and unzip it using command : [ unzip terraform_1.0.5_linux_amd64.zip ] (check and  change (1.0.5) version if required)
+step 2: download main.tf in same folder where upzip folder is present
+step 3: command : [ sudo mv terraform /usr/local/bin/  ]=> move to bin folder ,so we can run cmds from any location
+step 4: terraform -v  =>To check what version of terraform we are using 
+step 5: terraform installation complete.

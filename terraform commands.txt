@@ -1,0 +1,8 @@
+step 0: Login to your aws account
+step  1: IF you have done MFA(Multi factor Authentication ) earlier then only continue or else ask an of your friend who have done MFA
+step  2: search for IAM and click on it. If you have done MFA you will get option manage access key Get your access key ,security key ,security id , key name and  to put it in main.tf
+step 3: go back to fedora and run commands one by one.
+   	terraform init
+  	terraform plan
+  	terraform apply
+  	terraform destroy

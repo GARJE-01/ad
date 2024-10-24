@@ -1,0 +1,145 @@
+go to ec2 dashboard and click on launch  instances
+make a number of instance to 3
+under quick start select ubuntu
+now you have to select
+now you have to select the keypair if you are not created the keypair then click on create keypair 
+click on create keypair : rsa and .pem
+under Firewall security groups click on select existing security group and after which from common security group select one it is launch Wizard 3 or any existing 
+click on launch instance
+go to instances and click on anyone instance that you are created out of 3 and then click on connect
+go to ssh client and copy the command under example session
+
+
+########################################################################
+
+Creation of a Master Node: 
+open cmd from that folder where key.pem is located
+
+connect AWS instance and copy SSH command which is located in SSH client
+
+create 2 instances on AWS one is master and another is a worker node
+
+
+##################### Docker ################################
+
+sudo apt-get update
+
+sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+sudo docker --version
+
+sudo systemctl enable docker
+
+sudo systemctl start docker
+
+
+###########################################################################################################################
+
+####################### Kubelet, kubeadm, kubectl ###########################
+sudo apt-get update
+
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /
+
+sudo apt-get update
+
+sudo apt-get install -y kubelet kubeadm kubectl
+
+sudo apt-mark hold kubelet kubeadm kubectl
+
+sudo systemctl enable --now kubelet
+
+kubelet --version
+
+###########################################################################################################################
+
+sudo swapoff --a
+
+sudo hostnamectl set-hostname master-node
+
+sudo sed -i '/ swap / s/^/#/' /etc/fstab
+
+reboot the machine by manually (go to instance select the instance that you want to reboot and click on instance state and click on reboot instance   )
+
+kubeadm init --pod-network-cidr=10.244.0.0/16
+
+kubeadm version
+
+kubectl version
+__________________________________________________________________________________________________________________________
+##############################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################
+
+Creation of a Worker Node: 
+Open another 
+
+
+##################### Docker ################################
+
+sudo apt-get update
+
+sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+sudo docker --version
+
+sudo systemctl enable docker
+
+sudo systemctl start docker
+
+
+###########################################################################################################################
+
+####################### Kubelet, kubeadm, kubectl ###########################
+sudo apt-get update
+
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /
+
+sudo apt-get update
+
+sudo apt-get install -y kubelet kubeadm kubectl
+
+sudo apt-mark hold kubelet kubeadm kubectl
+
+sudo systemctl enable --now kubelet
+
+kubelet --version
+
+###########################################################################################################################
+
+sudo swapoff --a
+
+sudo hostnamectl set-hostname worker01
+
+sudo sed -i '/ swap / s/^/#/' /etc/fstab
+
+reboot the machine by manually (go to instance select the instance that you want to reboot and click on instance state and click on reboot instance   )
+
+kubeadm init --pod-network-cidr=10.244.0.0/16
+
+kubeadm version
+
+kubectl version
