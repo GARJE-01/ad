@@ -1,0 +1,38 @@
+step1: Login to AWS as a root user
+step2: search for Cloud9 and open it
+
+step3: click on Create a environment
+step4: Give a name to environment and click on create
+
+step5: Open the environment in instance
+step6: Create a python file and write some code and save it
+
+step 7: click on share at right corner
+step 8: click on create a new user at the bottom of the popup
+
+step 9: Enter user name , select the checkbox of provide user access to the AWS Management Console  
+step 10: select Custom password and enter password
+
+step 11: uncheck the user must create a new password at next sign-in and click on create 
+step 12: select attach policies directly
+
+step 13: Attach all Cloud9 policies and click on next
+step 14: click on create user
+
+step 15: copy the 12 digit user code which we have to use to login again
+step 16: enter the username and invite (keep the read write access)
+
+step 17: click on done
+step 18: logout from root user
+
+step 19: login using IAM user,  Enter the 12 digit code here and username and password
+step 20: search cloud9 and open it
+
+step 21: click on menu icon (3 lines)  and select the shared with me option
+step 22: open the shared instance and you can view and edit the work created by root user
+
+Thus Collaboration Demonstration is performed
+
+
+
+
